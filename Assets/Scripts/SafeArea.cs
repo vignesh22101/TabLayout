@@ -1,18 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 public class SafeArea : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SafeArea instance;
+
+    RectTransform Panel;
+    Rect LastSafeArea = new Rect(0, 0, 0, 0);
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        Panel = GetComponent<RectTransform>();
+        Refresh();
+    }
+
+    void Refresh()
+    {
+        Rect safeArea = GetSafeArea();
+
+        if (safeArea != LastSafeArea)
+            ApplySafeArea(safeArea);
+    }
+
+    Rect GetSafeArea()
+    {
+        Debug.Log($"safeArea:{Screen.safeArea}");
+        return Screen.safeArea;
+    }
+
+    void ApplySafeArea(Rect r)
+    {
+        LastSafeArea = r;
+
+        // Convert safe area rectangle from absolute pixels to normalised anchor coordinates
+        Vector2 anchorMin = r.position;
+        Vector2 anchorMax = r.position + r.size;
+        anchorMin.x /= Screen.width;
+        anchorMin.y /= Screen.height;
+        anchorMax.x /= Screen.width;
+        anchorMax.y /= Screen.height;
+
+        Panel.anchorMin = anchorMin;
+        Panel.anchorMax = anchorMax;
     }
 }
