@@ -1,27 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Content : MonoBehaviour
+public class Content : Comp
 {
-    #region Variables
-    [SerializeField] private Transform parent;
-    [SerializeField] private GameObject component;
-    [SerializeField] private Text identifierTxt;
-    #endregion
+    [SerializeField] private Color[] colors;
+    
+    private Image contentImg;
 
-    internal virtual void Delete()
+    //Invoked via button
+    public void ChangeColor()
     {
-        Destroy(gameObject);
-    }
-
-    internal virtual void Rename(string targetName)
-    {
-        identifierTxt.text = targetName;
-    }
-
-    internal virtual void Duplicate()
-    {
-        Content instantiatedComp = Instantiate(gameObject, parent).GetComponent<Content>();
-        instantiatedComp.Rename(identifierTxt.text + "(1)");
+        if (contentImg == null) contentImg = GetComponent<Image>();
+        contentImg.color = colors[Random.Range(0, colors.Length)];
     }
 }

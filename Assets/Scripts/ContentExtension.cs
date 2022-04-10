@@ -7,10 +7,12 @@ public class ContentExtension : MonoBehaviour
     #region Variables
     internal static ContentExtension instance;
 
-    private Content targetContent;
+    [SerializeField] private InputField inputField;
+
+    private Comp targetContent;
     private Camera mainCamera;
-    private InputField inputField;
     private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
     #endregion
 
     //Singleton pattern
@@ -27,6 +29,9 @@ public class ContentExtension : MonoBehaviour
         {
             Destroy(this);
         }
+
+        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
     }
 
     private void EnableExtension()
@@ -41,11 +46,9 @@ public class ContentExtension : MonoBehaviour
         canvasGroup.interactable = false;
     }
 
-    internal void EnableExtension(Content targetContent,Vector2 screenPos)
+    internal void EnableExtension(Comp targetContent)
     {
         this.targetContent = targetContent;
-        Vector3 modifiedScreenPos = new Vector3(screenPos.x,screenPos.y,0);
-        transform.localPosition = mainCamera.ScreenToWorldPoint(modifiedScreenPos);
         EnableExtension();
     }
 
