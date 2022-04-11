@@ -57,12 +57,25 @@ public class Tab : Comp
     internal override void Delete()
     {
         ResourcesHandler.instance.AddComponent(gameObject);
-        tabArea.SetActive(false);
+        DisableTab();
 
         for (int i = 0; i < tabArea.transform.childCount; i++)
         {
-            //Disabling the content
+            //Disabling the contents
             tabArea.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        Transform tabsParent = transform.parent;
+        //Enabling one of the tabs available
+        for (int i = 0; i < tabsParent.childCount; i++)
+        {
+            GameObject tab = tabsParent.GetChild(i).gameObject;
+
+            if (tab.activeInHierarchy)
+            {
+                tab.GetComponent<Tab>().EnableTab();
+                break;
+            }
         }
     }
     #endregion

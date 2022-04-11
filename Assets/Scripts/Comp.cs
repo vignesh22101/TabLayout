@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-enum ComponentType { Tab,Content}
+enum ComponentType { Tab, Content }
 
 public class Comp : MonoBehaviour
 {
@@ -24,5 +24,8 @@ public class Comp : MonoBehaviour
     {
         Comp instantiatedComp = Instantiate(gameObject, gameObject.transform.parent).GetComponent<Comp>();
         instantiatedComp.Rename(identifierTxt.text + "(1)");
+
+        if (instantiatedComp.componentType == ComponentType.Tab)
+            instantiatedComp.GetComponent<Tab>().EnableTab();
     }
 }

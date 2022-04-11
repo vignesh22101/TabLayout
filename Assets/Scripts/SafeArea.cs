@@ -19,6 +19,11 @@ public class SafeArea : MonoBehaviour
         Refresh();
     }
 
+    private void Update()
+    {
+        Refresh();
+    }
+
     void Refresh()
     {
         Rect safeArea = GetSafeArea();

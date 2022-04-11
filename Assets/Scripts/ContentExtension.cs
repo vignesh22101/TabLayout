@@ -40,7 +40,7 @@ public class ContentExtension : MonoBehaviour
         canvasGroup.interactable = true;
     }
 
-    private void DisableExtension()
+    internal void DisableExtension()
     {
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
@@ -70,6 +70,7 @@ public class ContentExtension : MonoBehaviour
     {
         DisableExtension();
         targetContent?.Rename(inputField.text);
+        inputField.text = "";
     }
     #endregion
 }

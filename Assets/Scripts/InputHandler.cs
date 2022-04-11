@@ -6,6 +6,7 @@ public class InputHandler : MonoBehaviour
     #region Variables
     [SerializeField] private float longPressDuration;
 
+    private GameObject currSelectedObj;
     private Comp selectedContent;
     private bool isTouchCancelled;
     private float touchBeganTime;
@@ -24,7 +25,8 @@ public class InputHandler : MonoBehaviour
                 {
                     selectedContent = null;
                     touchBeganTime = Time.realtimeSinceStartup;
-                    EventSystem.current.currentSelectedGameObject.TryGetComponent<Comp>(out selectedContent);
+                    currSelectedObj = EventSystem.current.currentSelectedGameObject;
+                    currSelectedObj.TryGetComponent<Comp>(out selectedContent);
                 }
 
                 if (touch.deltaPosition.magnitude > 3f)
