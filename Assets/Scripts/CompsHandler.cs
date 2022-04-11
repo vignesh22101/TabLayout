@@ -26,6 +26,7 @@ public class CompsHandler : MonoBehaviour
         {
             tab.EnableTab();
             activeTab = tab;
+            tab.transform.SetAsLastSibling();
         }
     }
 
@@ -34,6 +35,8 @@ public class CompsHandler : MonoBehaviour
         GameObject content = ResourcesHandler.instance.GetContent();
         content.transform.SetParent(activeTab.tabArea.transform);
         content.SetActive(true);
+        content.transform.SetAsLastSibling();
+        content.GetComponent<Content>().ResetColor();
     }
     #endregion
 }

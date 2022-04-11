@@ -10,11 +10,11 @@ public class ResourcesHandler : MonoBehaviour
     #region Variables
     internal static ResourcesHandler instance;
 
-    [SerializeField] private GameObject tab, content,tabArea;
-    [SerializeField] private Transform tabParent, contentParent,tabAreaParent;
+    [SerializeField] private GameObject tab, content, tabArea;
+    [SerializeField] private Transform tabParent, contentParent, tabAreaParent;
     [SerializeField] int noOfTabs, noOfContents;
 
-    private Queue<GameObject> tabsQueue=new Queue<GameObject>(), contentsQueue=new Queue<GameObject>();
+    private Queue<GameObject> tabsQueue = new Queue<GameObject>(), contentsQueue = new Queue<GameObject>();
     #endregion
 
     private void Awake()
@@ -59,25 +59,33 @@ public class ResourcesHandler : MonoBehaviour
         return contentsQueue.Dequeue();
     }
 
-    internal void AddTab(GameObject tab=null)
+    internal GameObject GetTabArea()
+    {
+        GameObject tabArea = Instantiate(this.tabArea, tabAreaParent);
+        return tabArea;
+    }
+
+    internal void AddTab(GameObject tab = null)
     {
         if (tab == null)
         {
             tab = Instantiate(this.tab, tabParent);
-            GameObject tabArea = Instantiate(this.tabArea,tabAreaParent);
+            GameObject tabArea = Instantiate(this.tabArea, tabAreaParent);
             tab.GetComponent<Tab>().Attach_TabArea(tabArea);
         }
 
-        tabsQueue.Enqueue(tab);
+        if (!tabsQueue.Contains(tab))
+            tabsQueue.Enqueue(tab);
         tab.SetActive(false);
     }
 
-    internal void AddContent(GameObject content=null)
+    internal void AddContent(GameObject content = null)
     {
         if (content == null)
             content = Instantiate(this.content, contentParent);
 
-        contentsQueue.Enqueue(content);
+        if (!contentsQueue.Contains(content))
+            contentsQueue.Enqueue(content);
         content.SetActive(false);
     }
 

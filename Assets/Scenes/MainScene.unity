@@ -3969,8 +3969,8 @@ MonoBehaviour:
   tabParent: {fileID: 840140077}
   contentParent: {fileID: 435773084}
   tabAreaParent: {fileID: 396038820}
-  noOfTabs: 10
-  noOfContents: 10
+  noOfTabs: 1
+  noOfContents: 1
 --- !u!114 &1535942814
 MonoBehaviour:
   m_ObjectHideFlags: 0

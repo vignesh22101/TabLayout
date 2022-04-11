@@ -13,6 +13,7 @@ public class Comp : MonoBehaviour
     internal virtual void Delete()
     {
         ResourcesHandler.instance.AddComponent(gameObject);
+        Rename(componentType.ToString());
     }
 
     internal virtual void Rename(string targetName)
@@ -26,6 +27,13 @@ public class Comp : MonoBehaviour
         instantiatedComp.Rename(identifierTxt.text + "(1)");
 
         if (instantiatedComp.componentType == ComponentType.Tab)
-            instantiatedComp.GetComponent<Tab>().EnableTab();
+        {
+            Tab instantitatedTab = instantiatedComp.GetComponent<Tab>();
+
+            GameObject formerTabArea = gameObject.GetComponent<Tab>().tabArea;
+            instantitatedTab.Attach_TabArea(Instantiate(formerTabArea,formerTabArea.transform.parent));
+
+            instantitatedTab.EnableTab();
+        }
     }
 }

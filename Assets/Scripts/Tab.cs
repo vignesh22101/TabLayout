@@ -56,13 +56,16 @@ public class Tab : Comp
     #region Overrides
     internal override void Delete()
     {
+        Rename(componentType.ToString());
         ResourcesHandler.instance.AddComponent(gameObject);
+        tabArea_GridLayout.cellSize = new Vector2(100,100);
         DisableTab();
 
+        print($"Tab delete, childCount:{tabArea.transform.childCount}");
         for (int i = 0; i < tabArea.transform.childCount; i++)
         {
             //Disabling the contents
-            tabArea.transform.GetChild(i).gameObject.SetActive(false);
+            ResourcesHandler.instance.AddComponent(tabArea.transform.GetChild(i).gameObject);
         }
 
         Transform tabsParent = transform.parent;

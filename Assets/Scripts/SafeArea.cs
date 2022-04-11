@@ -34,7 +34,7 @@ public class SafeArea : MonoBehaviour
 
     Rect GetSafeArea()
     {
-        Debug.Log($"safeArea:{Screen.safeArea}");
+        //Debug.Log($"safeArea:{Screen.safeArea}");
         return Screen.safeArea;
     }
 
